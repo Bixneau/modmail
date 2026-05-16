@@ -1,0 +1,1 @@
+print("Mon bot fonctionne")
