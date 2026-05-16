@@ -157,6 +157,63 @@ async def panel(ctx):
 
     await ctx.send(embed=embed, view=view)
 
+# Automods
+@bot.event
+async def on_message(message):
+
+    # Ignore bots
+    if message.author.bot:
+        return
+
+    # Ignore admins/mods
+    if message.author.guild_permissions.manage_messages:
+        await bot.process_commands(message)
+        return
+
+    # Liens autorisés
+    allowed = [
+        "youtube.com",
+        "youtu.be",
+        "tiktok.com",
+        "tenor.com",
+        "giphy.com",
+        ".gif"
+    ]
+
+    content = message.content.lower()
+
+    # Détection lien
+    if (
+        "http://" in content
+        or "https://" in content
+        or "discord.gg/" in content
+    ):
+
+        # Vérifie whitelist
+        if not any(link in content for link in allowed):
+
+            try:
+
+                # Supprime message
+                await message.delete()
+
+                # MP utilisateur
+                dm_embed = discord.Embed(
+                    title="🚫 Message supprimé",
+                    description="Ton message contenait un lien interdit.",
+                    color=discord.Color.red()
+                )
+
+                await message.author.send(
+                    embed=dm_embed
+                )
+
+            except:
+                pass
+
+    # Obligatoire pour commandes
+    await bot.process_commands(message)
+
 # Lance Flask
 keep_alive()
 
