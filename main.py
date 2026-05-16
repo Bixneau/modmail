@@ -1,9 +1,20 @@
-from flask import Flask
+import discord
+from discord.ext import commands
+import os
 
-app = Flask(__name__)
+TOKEN = os.getenv("TOKEN")
 
-@app.route("/")
-def home():
-    return "Bot en ligne"
+intents = discord.Intents.default()
+intents.message_content = True
 
-app.run(host="0.0.0.0", port=10000)
+bot = commands.Bot(command_prefix="!", intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f"Connecté en tant que {bot.user}")
+
+@bot.command()
+async def ping(ctx):
+    await ctx.send("Pong 🏓")
+
+bot.run(TOKEN)
