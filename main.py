@@ -29,7 +29,7 @@ intents.guilds = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 # IDs
-CATEGORY_ID = 1505338661078696046
+CATEGORY_ID = 1504963990105886771
 LOGS_CHANNEL_ID = 1505338942633807995
 
 # Bot prêt
