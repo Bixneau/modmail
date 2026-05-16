@@ -1,10 +1,27 @@
 import discord
 from discord.ext import commands
 from discord.ui import Button, View
+from flask import Flask
+from threading import Thread
 import os
 
 TOKEN = os.getenv("TOKEN")
 
+# Flask pour Render
+app = Flask('')
+
+@app.route('/')
+def home():
+    return "Bot online"
+
+def run():
+    app.run(host='0.0.0.0', port=10000)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
+# Intents
 intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
@@ -28,7 +45,7 @@ async def on_ready():
 
     print(f"Connecté en tant que {bot.user}")
 
-# Commande pour envoyer le panneau ticket
+# Panel ticket
 @bot.command()
 async def panel(ctx):
 
@@ -53,7 +70,6 @@ async def panel(ctx):
             id=CATEGORY_ID
         )
 
-        # Permissions privées
         overwrites = {
             guild.default_role: discord.PermissionOverwrite(
                 view_channel=False
@@ -69,7 +85,6 @@ async def panel(ctx):
             )
         }
 
-        # Création ticket
         channel = await guild.create_text_channel(
             name=f"ticket-{interaction.user.name}",
             category=category,
@@ -139,7 +154,6 @@ async def panel(ctx):
                 embed=log_embed
             )
 
-        # Message privé visible seulement par l'utilisateur
         await interaction.response.send_message(
             f"✅ Ticket créé : {channel.mention}",
             ephemeral=True
@@ -152,5 +166,8 @@ async def panel(ctx):
 
     await ctx.send(embed=embed, view=view)
 
-# Lancement
+# Lance Flask
+keep_alive()
+
+# Lance Discord
 bot.run(TOKEN)
