@@ -111,12 +111,6 @@ async def panel(ctx):
             color=discord.Color.green()
         )
 
-        ticket_embed.add_field(
-            name="Utilisateur",
-            value=interaction.user.mention,
-            inline=False
-        )
-
         await channel.send(
             interaction.user.mention,
             embed=ticket_embed,
