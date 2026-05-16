@@ -56,8 +56,7 @@ async def panel(ctx):
 
     button = Button(
         label="Assistance",
-        style=discord.ButtonStyle.blurple,
-        emoji="📩"
+        style=discord.ButtonStyle.blurple
     )
 
     async def button_callback(interaction):
