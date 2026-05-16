@@ -50,15 +50,14 @@ async def on_ready():
 async def panel(ctx):
 
     embed = discord.Embed(
-        title="🎫 Support",
-        description="Clique sur le bouton ci-dessous pour ouvrir un ticket.",
+        description="Recrutement ? Question ? Tous votre demande sont disponibles ici.",
         color=discord.Color.blurple()
     )
 
     button = Button(
-        label="Ouvrir un Ticket",
+        label="Assistance",
         style=discord.ButtonStyle.green,
-        emoji="🎫"
+        emoji="📩"
     )
 
     async def button_callback(interaction):
@@ -93,9 +92,8 @@ async def panel(ctx):
 
         # Bouton fermer
         close_button = Button(
-            label="Fermer le Ticket",
             style=discord.ButtonStyle.red,
-            emoji="🔒"
+            emoji="🗑️"
         )
 
         async def close_callback(close_interaction):
@@ -109,7 +107,7 @@ async def panel(ctx):
 
         # Embed ticket
         ticket_embed = discord.Embed(
-            title="🎫 Ticket Créé",
+            title="Bienvenue sur notre assistance",
             description="Le support va bientôt vous répondre.",
             color=discord.Color.green()
         )
@@ -134,7 +132,7 @@ async def panel(ctx):
         if logs_channel:
 
             log_embed = discord.Embed(
-                title="📁 Ticket Créé",
+                title="Ticket Créé",
                 color=discord.Color.blurple()
             )
 
