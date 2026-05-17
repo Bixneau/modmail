@@ -4,6 +4,7 @@ from discord.ui import Button, View
 from flask import Flask
 from threading import Thread
 import os
+import asyncio
 
 TOKEN = os.getenv("TOKEN")
 
@@ -218,4 +219,18 @@ async def on_message(message):
 keep_alive()
 
 # Lance Discord
-bot.run(TOKEN)
+async def main():
+
+    while True:
+
+        try:
+
+            await bot.start(TOKEN)
+
+        except Exception as e:
+
+            print(f"Erreur : {e}")
+
+            await asyncio.sleep(10)
+
+asyncio.run(main())
